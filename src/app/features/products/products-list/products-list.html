@@ -1,0 +1,59 @@
+<section
+  class="flex gap-2 flex-wrap justify-center m-16 antialiased bg-gray-50 text-gray-600 min-h-screen p-4"
+
+  >
+  @for (prd of products; track prd.id; let i =$index,c=$count,e=$even) {
+    <!-- card  -->
+    <div class="h-full w-md" [ngClass]="{ 'border-2 border-red-600': prd.quantity == 0 }">
+      <div>
+        <div class="flex flex-col  h-full bg-white shadow-lg rounded-lg overflow-hidden">
+          <a class="block focus:outline-none focus-visible:ring-2" href="#0">
+            <figure class="relative h-0 pb-[56.25%] overflow-hidden">
+              <img
+                class="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition duration-700 ease-out"
+                [src]="prd.imgUrl"
+                width="320"
+                height="180"
+                alt="Course"
+              />
+            </figure>
+          </a>
+          <div class="flex flex-col p-5">
+            <div>
+              <header class="mb-3">
+                <a class="block focus:outline-none focus-visible:ring-2" href="#0">
+                  <h3 [style]=""  class="text-[22px]  text-gray-900  leading-snug">
+                    {{ prd.name }}
+                  </h3>
+                </a>
+              </header>
+              <div class="mb-8">
+                <p>price : {{ prd.price | discount:20}}</p>
+                @switch (prd.quantity) {
+                  @case (0) {
+                    <p>Out of stock</p>
+                  }
+                  @case (1) {
+                    <p>Last item</p>
+                  }
+                  @default {
+                    <p>Quantity : {{ prd.quantity }}</p>
+                  }
+                }
+              </div>
+            </div>
+            <div class="flex justify-end space-x-2">
+              <button
+                class="font-semibold text-sm inline-flex items-center justify-center px-3 py-1.5 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out bg-indigo-500 focus:outline-none focus-visible:ring-2 hover:bg-indigo-600 text-white"
+                (click)="changeHeaderClasses()"
+                >Buy Now</button
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @empty {
+    <h1>No products to view</h1>
+  }
+</section>
