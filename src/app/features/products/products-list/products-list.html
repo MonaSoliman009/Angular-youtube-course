@@ -1,12 +1,21 @@
-<section
-  class="flex gap-2 flex-wrap justify-center m-16 antialiased bg-gray-50 text-gray-600 min-h-screen p-4"
+<!-- search -->
+<div class="my-7">
+  <h2 class="text-center text-2xl">search with product name :</h2>
+  <div class="flex justify-center">
+    <input type="text" class="border rounded-md my-3 px-3 w-lg" [(ngModel)]="searchText"/>
+    <button class="border rounded-md px-3 mx-3 bg-blue-400" (click)="addNewPrd()">Add new Product</button>
+  </div>
+</div>
 
-  >
-  @for (prd of products; track prd.id; let i =$index,c=$count,e=$even) {
+<!-- products -->
+<section
+  class="flex gap-2 flex-wrap justify-center m-10 antialiased bg-gray-50 text-gray-600 min-h-screen p-4"
+>
+  @for (prd of products|filter:searchText; track prd.id) {
     <!-- card  -->
-    <div class="h-full w-md" [ngClass]="{ 'border-2 border-red-600': prd.quantity == 0 }">
+    <div class="h-full w-md">
       <div>
-        <div class="flex flex-col  h-full bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="flex flex-col h-full bg-white shadow-lg rounded-lg overflow-hidden">
           <a class="block focus:outline-none focus-visible:ring-2" href="#0">
             <figure class="relative h-0 pb-[56.25%] overflow-hidden">
               <img
@@ -22,13 +31,13 @@
             <div>
               <header class="mb-3">
                 <a class="block focus:outline-none focus-visible:ring-2" href="#0">
-                  <h3 [style]=""  class="text-[22px]  text-gray-900  leading-snug">
+                  <h3 [style]="" class="text-[22px] text-gray-900 leading-snug">
                     {{ prd.name }}
                   </h3>
                 </a>
               </header>
               <div class="mb-8">
-                <p>price : {{ prd.price | discount:20}}</p>
+                <p>price : {{ prd.price }}</p>
                 @switch (prd.quantity) {
                   @case (0) {
                     <p>Out of stock</p>
@@ -45,9 +54,9 @@
             <div class="flex justify-end space-x-2">
               <button
                 class="font-semibold text-sm inline-flex items-center justify-center px-3 py-1.5 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out bg-indigo-500 focus:outline-none focus-visible:ring-2 hover:bg-indigo-600 text-white"
-                (click)="changeHeaderClasses()"
-                >Buy Now</button
               >
+                Buy Now
+              </button>
             </div>
           </div>
         </div>

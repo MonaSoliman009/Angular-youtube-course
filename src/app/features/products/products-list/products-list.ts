@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { IProduct } from '../models/iproduct';
-import { AsyncPipe, CurrencyPipe, DatePipe, JsonPipe, KeyValuePipe, LowerCasePipe, NgClass, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
-import { DiscountPipe } from '../../../shared/pipes/discount-pipe';
+import { FormsModule } from '@angular/forms';
+import { FilterPipe } from '../../../shared/pipes/filter-pipe';
 
 @Component({
   selector: 'app-products-list',
-  imports: [NgClass,DiscountPipe],
+  imports: [FormsModule, FilterPipe],
   templateUrl: './products-list.html'
 })
 export class ProductsList {
+  searchText: string = ''
   products: IProduct[] = [
     {
       id: "1",
@@ -61,17 +62,14 @@ export class ProductsList {
       catId: "3"
     }
   ];
-  d:Date=new Date()
-  p=new Promise((res,rej)=>{
-    setTimeout(()=>{
-      res('Hello world')
-    },3000)
-  })
-  classes:string="bg-blue-700 font-bold"
-  headerClass='bg-red-600'
-  classesObj={'bg-blue-700':true,'font-bold':false}
-  headerStyles='font-size:60px;color:red'
-  changeHeaderClasses(){
-    this.classesObj['font-bold']=true
+  addNewPrd() {
+    this.products.push({
+      id: "1",
+      name: "New Product",
+      imgUrl: "https://fastly.picsum.photos/id/842/200/200.jpg?hmac=RW9iEgAYLKwoinQWSz_zrZHyOwmVEgqvoZTPebkRGMM",
+      price: 1200,
+      quantity: 10,
+      catId: "1"
+    })
   }
 }
